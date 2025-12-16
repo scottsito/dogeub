@@ -123,7 +123,7 @@ export default defineConfig(({ command }) => {
     build: {
       target: 'es2022',
       reportCompressedSize: false,
-      esbuild: { 
+      esbuild: {
         legalComments: 'none',
         treeShaking: true
       },
@@ -139,7 +139,7 @@ export default defineConfig(({ command }) => {
           manualChunks: (id) => {
             if (!id.includes('node_modules')) return;
             const m = id.split('node_modules/')[1];
-            const pkg = m.startsWith('@') ? m.split('/').slice(0,2).join('/') : m.split('/')[0];
+            const pkg = m.startsWith('@') ? m.split('/').slice(0, 2).join('/') : m.split('/')[0];
             if (/react-router|react-dom|react\b/.test(pkg)) return 'react';
             if (/^@mui\//.test(pkg) || /^@emotion\//.test(pkg)) return 'mui';
             if (/lucide/.test(pkg)) return 'icons';
@@ -163,6 +163,10 @@ export default defineConfig(({ command }) => {
       },
     },
     server: {
+      allowedHosts: [
+        'all',
+        '.calculustutor.xyz', // optional wildcard for future subdomains
+      ],
       proxy: {
         '/assets/img': {
           target: 'https://dogeub-assets.pages.dev',
